@@ -1,0 +1,63 @@
+package com.example.cookbook.domain.entity.entity_recipe
+
+
+import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Meal(
+    @Expose var idMeal: String?="",
+    @Expose var dateModified: String?="",
+    @Expose var strArea: String?="",
+    @Expose var strCategory: String?="",
+    @Expose var strCreativeCommonsConfirmed: String?="",
+    @Expose var strDrinkAlternate: String?="",
+    @Expose var strImageSource: String?="",
+    @Expose var strIngredient1: String?="",
+    @Expose var strIngredient10: String?="",
+    @Expose var strIngredient11: String?="",
+    @Expose var strIngredient12: String?="",
+    @Expose var strIngredient13: String?="",
+    @Expose var strIngredient14: String?="",
+    @Expose var strIngredient15: String?="",
+    @Expose var strIngredient16: String?="",
+    @Expose var strIngredient17: String?="",
+    @Expose var strIngredient18: String?="",
+    @Expose var strIngredient19: String?="",
+    @Expose var strIngredient2: String?="",
+    @Expose var strIngredient20: String?="",
+    @Expose var strIngredient3: String?="",
+    @Expose var strIngredient4: String?="",
+    @Expose var strIngredient5: String?="",
+    @Expose var strIngredient6: String?="",
+    @Expose var strIngredient7: String?="",
+    @Expose var strIngredient8: String?="",
+    @Expose var strIngredient9: String?="",
+    @Expose var strInstructions: String?="",
+    @Expose var strMeal: String?="",
+    @Expose var strMealThumb: String?="",
+    @Expose var strMeasure1: String?="",
+    @Expose var strMeasure10: String?="",
+    @Expose var strMeasure11: String?="",
+    @Expose var strMeasure12: String?="",
+    @Expose var strMeasure13: String?="",
+    @Expose var strMeasure14: String?="",
+    @Expose var strMeasure15: String?="",
+    @Expose var strMeasure16: String?="",
+    @Expose var strMeasure17: String?="",
+    @Expose var strMeasure18: String?="",
+    @Expose var strMeasure19: String?="",
+    @Expose var strMeasure2: String?="",
+    @Expose var strMeasure20: String?="",
+    @Expose var strMeasure3: String?="",
+    @Expose var strMeasure4: String?="",
+    @Expose var strMeasure5: String?="",
+    @Expose var strMeasure6: String?="",
+    @Expose var strMeasure7: String?="",
+    @Expose var strMeasure8: String?="",
+    @Expose var strMeasure9: String?="",
+    @Expose var strSource: String?="",
+    @Expose var strTags: String?="",
+    @Expose var strYoutube: String?=""
+) : Parcelable

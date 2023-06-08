@@ -1,0 +1,146 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "db34a4cf703a9cd11042a8dcca6e1a46",
+    "entities": [
+      {
+        "tableName": "RoomGithubUser",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idCategory` TEXT NOT NULL, `strCategory` TEXT NOT NULL, `strCategoryThumb` TEXT, `strCategoryDescription` TEXT, PRIMARY KEY(`idCategory`))",
+        "fields": [
+          {
+            "fieldPath": "idCategory",
+            "columnName": "idCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strCategory",
+            "columnName": "strCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strCategoryThumb",
+            "columnName": "strCategoryThumb",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "strCategoryDescription",
+            "columnName": "strCategoryDescription",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idCategory"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "RoomGithubRepository",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idMeal` TEXT NOT NULL, `strMeal` TEXT NOT NULL, `strMealThumb` TEXT NOT NULL, `idCategory` TEXT NOT NULL, PRIMARY KEY(`idMeal`), FOREIGN KEY(`idCategory`) REFERENCES `RoomGithubUser`(`idCategory`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idMeal",
+            "columnName": "idMeal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strMeal",
+            "columnName": "strMeal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strMealThumb",
+            "columnName": "strMealThumb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idCategory",
+            "columnName": "idCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idMeal"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "RoomGithubUser",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idCategory"
+            ],
+            "referencedColumns": [
+              "idCategory"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "RoomGithubPicture",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idCategory` TEXT NOT NULL, `strCategoryThumb` TEXT NOT NULL, `local_path` TEXT NOT NULL, PRIMARY KEY(`idCategory`), FOREIGN KEY(`idCategory`) REFERENCES `RoomGithubUser`(`idCategory`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idCategory",
+            "columnName": "idCategory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strCategoryThumb",
+            "columnName": "strCategoryThumb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "local_path",
+            "columnName": "local_path",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "idCategory"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "RoomGithubUser",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idCategory"
+            ],
+            "referencedColumns": [
+              "idCategory"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'db34a4cf703a9cd11042a8dcca6e1a46')"
+    ]
+  }
+}

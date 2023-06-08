@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/recipe_padding">
+
+    <ImageView
+        android:id="@+id/photo_meal"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/image_recipe_image_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".5" />
+
+    <TextView
+        android:id="@+id/title_name_meal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/name_of_meal"
+        android:layout_marginLeft="@dimen/scroll_view_margin"
+        android:textColor="@color/material_dynamic_secondary40"
+        app:layout_constraintStart_toEndOf="@+id/photo_meal"
+        app:layout_constraintTop_toTopOf="@+id/photo_meal"
+        app:layout_constraintWidth_percent=".5" />
+
+    <TextView
+        android:id="@+id/name_meal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/name_of_meal"
+        android:hint="@string/name_of_meal"
+        android:textIsSelectable="true"
+        android:freezesText="true"
+        android:layout_marginLeft="@dimen/scroll_view_margin"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/photo_meal"
+        app:layout_constraintTop_toBottomOf="@+id/title_name_meal"
+        app:layout_constraintWidth_percent=".5" />
+
+    <TextView
+        android:id="@+id/title_area_meal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/area_meal"
+        android:layout_marginLeft="@dimen/scroll_view_margin"
+        android:textColor="@color/material_dynamic_secondary40"
+        app:layout_constraintStart_toEndOf="@+id/photo_meal"
+        app:layout_constraintTop_toBottomOf="@+id/name_meal"
+        app:layout_constraintWidth_percent=".5" />
+
+    <TextView
+        android:id="@+id/area_meal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/area_meal"
+        android:hint="@string/area_meal"
+        android:textIsSelectable="true"
+        android:freezesText="true"
+        android:layout_marginLeft="@dimen/scroll_view_margin"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/photo_meal"
+        app:layout_constraintTop_toBottomOf="@+id/title_area_meal"
+        app:layout_constraintWidth_percent=".5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/play_movie"
+        android:layout_width="@dimen/play_button_size"
+        android:layout_height="@dimen/play_button_size"
+        android:background="@drawable/baseline_play_circle_outline_24"
+        android:contentDescription="@string/play_movie"
+        app:layout_constraintBottom_toBottomOf="@+id/photo_meal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/photo_meal" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/scroll_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/card_margin_top"
+        android:paddingTop="@dimen/recipe_padding"
+        app:cardBackgroundColor="@color/ingredients"
+        app:layout_constraintHeight_percent=".22"
+        app:layout_constraintTop_toBottomOf="@+id/photo_meal">
+
+        <FrameLayout
+            android:id="@+id/fragment_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/scroll_view_margin"
+                android:scrollbars="vertical">
+
+                <TextView
+                    android:id="@+id/ingredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize = "@dimen/recipe_text_size"
+                    android:contentDescription="@string/ingredients"
+                    android:hint="@string/ingredients"
+                    android:textIsSelectable="true"
+                    android:freezesText="true"/>
+
+            </ScrollView>
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_circular"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|center"
+                android:indeterminate="true" />
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="@color/instruction_card_color"
+        app:layout_constraintHeight_percent=".47"
+        android:layout_marginTop="@dimen/card_margin_top"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_ingredients">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/scroll_view_margin"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/instruction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize = "@dimen/recipe_text_size"
+                android:contentDescription="@string/instruction"
+                android:hint="@string/instruction"
+                android:textIsSelectable="true"
+                android:freezesText="true"/>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
