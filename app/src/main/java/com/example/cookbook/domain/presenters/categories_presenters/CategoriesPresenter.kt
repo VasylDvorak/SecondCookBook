@@ -7,6 +7,7 @@ import com.example.cookbook.domain.view.CategoryItemView
 import com.example.cookbook.navigation.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import moxy.MvpPresenter
 import javax.inject.Inject
 
@@ -41,10 +42,10 @@ class CategoriesPresenter : MvpPresenter<CategoriesView>() {
     }
 
 
-    val categoriesListPresenter = CategoriesListPresenter()
+    var categoriesListPresenter = CategoriesListPresenter()
 
 
-    override fun onFirstViewAttach() {
+    public override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
         loadCategories()
@@ -57,10 +58,14 @@ class CategoriesPresenter : MvpPresenter<CategoriesView>() {
             }
         }
     }
-
-    fun loadCategories() {
+   lateinit var callCategoriesRepo:  Single<List<Category>>
+    fun loadCategories(){
+        callCategoriesRepo = categoriesRepo.getCategories()?:Single.just(listOf<Category>())
+        loadCategoriesJavaRx()
+    }
+    fun loadCategoriesJavaRx() {
         viewState.progressCircleVisible()
-        categoriesRepo.getCategories()
+        callCategoriesRepo
             .observeOn(mainThreadScheduler)
             .subscribe({ categories ->
                 if (categories.size != 0) {

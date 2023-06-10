@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Menu(
-    @Expose var idMeal: String,
+    @Expose var idMeal: String="",
     @Expose var strMeal: String = "",
     @Expose var strMealThumb: String = ""
 ) : Parcelable

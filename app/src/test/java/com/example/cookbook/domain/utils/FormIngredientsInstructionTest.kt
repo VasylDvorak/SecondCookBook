@@ -12,10 +12,11 @@ import org.junit.Before
 import org.junit.Test
 
 class FormIngredientsInstructionTest {
-    private lateinit var validator:FormIngredientsInstruction
+
+    private lateinit var validator: FormIngredientsInstruction
 
     @Before
-    fun setup(){
+    fun setup() {
         validator = FormIngredientsInstruction()
     }
 
@@ -33,10 +34,12 @@ class FormIngredientsInstructionTest {
 
     @Test
     fun testForArrayEquals() {
-       repeat(5){
-        assertArrayEquals(validator
-            .get_FirstArray((it+1)*2), validator.get_SecondArray(it+1))
-    }
+        repeat(5) {
+            assertArrayEquals(
+                validator
+                    .get_FirstArray((it + 1) * 2), validator.get_SecondArray(it + 1)
+            )
+        }
     }
 
     @Test
@@ -57,7 +60,8 @@ class FormIngredientsInstructionTest {
     @Test
     fun testForFunctionOr_ReturnTrue() {
         assertTrue(validator.get_Or(false, true))
-}
+    }
+
     @Test
     fun testForFunctionOr_ReturnFalse() {
         assertFalse(validator.get_Or(false, false))
