@@ -9,6 +9,7 @@ import com.example.cookbook.domain.utils.FormIngredientsInstruction
 import com.example.cookbook.domain.view.RecipeView
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import moxy.MvpPresenter
 import javax.inject.Inject
 
@@ -27,20 +28,24 @@ class RecipePresenter : MvpPresenter<RecipeView>() {
     @Inject
     lateinit var screen: IScreens
 
-    private var currentRecipe: Meal = Meal()
-    private val formIngredientsInstruction = FormIngredientsInstruction()
+    var currentRecipe: Meal = Meal()
+    val formIngredientsInstruction = FormIngredientsInstruction()
 
-    override fun onFirstViewAttach() {
+    public override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
 
     }
 
+    lateinit var callRecipeRepo: Single<List<Meal>>
+    fun loadRecipe(currentItemMenu: Menu){
+        callRecipeRepo = recipeRepo.getRecipes(currentItemMenu)
+        loadRecipeJavaRx()
+    }
 
-
-    fun loadRecipe(currentItemMenu: Menu) {
+    fun loadRecipeJavaRx() {
         viewState.progressCircleVisible()
-        recipeRepo.getRecipes(currentItemMenu)
+        callRecipeRepo
             .observeOn(mainThreadScheduler)
             .subscribe({ recipe ->
                 if(recipe.size !=0){
@@ -61,16 +66,15 @@ class RecipePresenter : MvpPresenter<RecipeView>() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         viewState.release()
     }
 
 
-    private fun showInstruction() {
+    fun showInstruction() {
         viewState.showInstruction(formIngredientsInstruction
             .formInstructionText(currentRecipe.strInstructions?:""))
     }
-   private fun showIngredients() {
+   fun showIngredients() {
         viewState.showIngredients(formIngredientsInstruction.ingredientsList(currentRecipe))
     }
 

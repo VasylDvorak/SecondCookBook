@@ -1,6 +1,5 @@
 package com.example.cookbook.domain.presenters.menu_fragment_presenters
 
-
 import com.example.cookbook.domain.repository.MenItemView
 import com.example.cookbook.domain.repository.retrofit.IMenuRepo
 import com.example.cookbook.domain.entity.entity_categories.Category
@@ -9,11 +8,9 @@ import com.example.cookbook.domain.view.CategoriesView
 import com.example.cookbook.navigation.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
 import moxy.MvpPresenter
 import javax.inject.Inject
-
-
-
 
 class MenuPresenter: MvpPresenter<CategoriesView>() {
 
@@ -42,16 +39,22 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
     val menuListPresenter = MenuListPresenter()
 
 
-    override fun onFirstViewAttach() {
+    public override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
 
     }
 
+    lateinit var callMenuRepo: Single<List<Menu>>
+    fun loadMenu(currentCategory: Category){
+        callMenuRepo = menuRepo.getMenu(currentCategory)
+        loadMenuJavaRx()
+    }
 
-    fun loadMenu(currentCategory: Category) {
+
+    fun loadMenuJavaRx() {
         viewState.progressCircleVisible()
-        menuRepo.getMenu(currentCategory)
+        callMenuRepo
             .observeOn(mainThreadScheduler)
             .subscribe({ menus ->
                 if (menus.size != 0) {
@@ -78,7 +81,6 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         viewState.release()
     }
 

@@ -21,7 +21,7 @@ class CategoriesCache : ICategoriesCache {
     lateinit var picturesRepo: IPictureRepo
 
     init {
-        App.instance.appComponent.inject(this)
+       App.instance.appComponent.inject(this)
     }
 
     override fun newData(
