@@ -50,9 +50,12 @@ class CategoriesPresenterTest {
     @Test
     fun loadCategoriesJavaRx_Test_ResponseIsEmpty() {
         val response = Single.just(listOf<Category>())
+        val categories = mock(List::class.java) as List<Category>
+        `when`(categories.isNotEmpty()).thenReturn(false)
         presenter.callCategoriesRepo = response
         presenter.loadCategoriesJavaRx()
         assertTrue(response.blockingGet().isEmpty())
+        verify(viewState, times(0)).progressCircleGone()
     }
 
     @Test
@@ -60,6 +63,8 @@ class CategoriesPresenterTest {
 
         val response =
             Single.just(listOf(Category(idCategory = "one"), Category(idCategory = "two")))
+        val categories = mock(List::class.java) as List<Category>
+        `when`(categories.isNotEmpty()).thenReturn(true)
         presenter.callCategoriesRepo = response
         presenter.loadCategoriesJavaRx()
         assertNotEquals(response.blockingGet().size, 0)

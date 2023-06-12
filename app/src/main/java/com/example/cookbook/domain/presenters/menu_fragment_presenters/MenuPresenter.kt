@@ -12,14 +12,17 @@ import io.reactivex.rxjava3.core.Single
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class MenuPresenter: MvpPresenter<CategoriesView>() {
+class MenuPresenter : MvpPresenter<CategoriesView>() {
 
     @Inject
     lateinit var mainThreadScheduler: Scheduler
+
     @Inject
     lateinit var menuRepo: IMenuRepo
+
     @Inject
-    lateinit var router:Router
+    lateinit var router: Router
+
     @Inject
     lateinit var screen: IScreens
 
@@ -30,10 +33,9 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
         override fun bindView(view: MenItemView) {
             val menu = menus[view.pos]
             menu.let { it.strMeal?.let { itOne -> view.setName(itOne) } }
-           menu.let { it.strMealThumb?.let { itOne -> view.loadPicture(itOne) } }
+            menu.let { it.strMealThumb?.let { itOne -> view.loadPicture(itOne) } }
         }
     }
-
 
 
     val menuListPresenter = MenuListPresenter()
@@ -46,7 +48,7 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
     }
 
     lateinit var callMenuRepo: Single<List<Menu>>
-    fun loadMenu(currentCategory: Category){
+    fun loadMenu(currentCategory: Category) {
         callMenuRepo = menuRepo.getMenu(currentCategory)
         loadMenuJavaRx()
     }
@@ -57,7 +59,7 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
         callMenuRepo
             .observeOn(mainThreadScheduler)
             .subscribe({ menus ->
-                if (menus.size != 0) {
+                if (menus.isNotEmpty()) {
                     viewState.progressCircleGone()
                     menuListPresenter.menus.apply {
                         clear()
@@ -67,7 +69,7 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
                 } else {
                     showError()
                 }
-            },{
+            }, {
                 showError()
             })
 
@@ -85,8 +87,8 @@ class MenuPresenter: MvpPresenter<CategoriesView>() {
     }
 
 
-    fun showError(){
-        viewState.apply{
+    fun showError() {
+        viewState.apply {
             progressCircleGone()
             showToastFragment()
         }

@@ -14,6 +14,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import org.mockito.Spy
 
 class MenuPresenterTest {
 
@@ -51,9 +52,12 @@ class MenuPresenterTest {
     @Test
     fun loadMenuJavaRx_Test_ResponseIsEmpty() {
         val response = Single.just(listOf<Menu>())
+        val menus = mock(List::class.java) as List<Menu>
+        `when`(menus.isNotEmpty()).thenReturn(false)
         presenter.callMenuRepo = response
         presenter.loadMenuJavaRx()
         assertTrue(response.blockingGet().isEmpty())
+        verify(viewState, times(0)).showToastFragment()
     }
 
     @Test
@@ -61,9 +65,12 @@ class MenuPresenterTest {
 
         val response =
             Single.just(listOf(Menu(idMeal = "one"), Menu(idMeal = "two")))
+        val menus = mock(List::class.java) as List<Menu>
+        `when`(menus.isNotEmpty()).thenReturn(true)
         presenter.callMenuRepo = response
         presenter.loadMenuJavaRx()
         assertNotEquals(response.blockingGet().size, 0)
+        verify(viewState, never()).progressCircleGone()
     }
 
     @Test

@@ -68,7 +68,7 @@ class CategoriesPresenter : MvpPresenter<CategoriesView>() {
         callCategoriesRepo
             .observeOn(mainThreadScheduler)
             .subscribe({ categories ->
-                if (categories.size != 0) {
+                if (categories.isNotEmpty()) {
                     viewState.progressCircleGone()
                     categoriesListPresenter.categories.apply {
                         clear()

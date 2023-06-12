@@ -3,6 +3,7 @@ package com.example.cookbook.domain.presenters
 import com.example.cookbook.domain.entity.entity_menu.Menu
 import com.example.cookbook.domain.entity.entity_recipe.Meal
 import com.example.cookbook.domain.repository.retrofit.IRecipeRepo
+import com.example.cookbook.domain.utils.FormIngredientsInstruction
 import com.example.cookbook.domain.view.RecipeView
 import com.example.cookbook.navigation.IScreens
 import io.reactivex.rxjava3.core.Single
@@ -13,6 +14,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+
 
 class RecipePresenterTest {
 
@@ -29,6 +31,9 @@ class RecipePresenterTest {
     @Mock
     lateinit var screen: IScreens
 
+    @Mock
+    lateinit var formIngredientsInstruction: FormIngredientsInstruction
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -36,6 +41,7 @@ class RecipePresenterTest {
             mainThreadScheduler = this@RecipePresenterTest.mainThreadScheduler
             recipeRepo = this@RecipePresenterTest.recipeRepo
             screen = this@RecipePresenterTest.screen
+            formIngredientsInstruction = this@RecipePresenterTest.formIngredientsInstruction
         }
     }
 
@@ -48,7 +54,10 @@ class RecipePresenterTest {
 
     @Test
     fun loadRecipeJavaRx_Test_ResponseIsEmpty() {
+
         val response = Single.just(listOf<Meal>())
+        val recipe = mock(List::class.java) as List<Meal>
+        `when`(recipe.isNotEmpty()).thenReturn(false)
         presenter.callRecipeRepo = response
         presenter.loadRecipeJavaRx()
         assertTrue(response.blockingGet().isEmpty())
@@ -56,9 +65,10 @@ class RecipePresenterTest {
 
     @Test
     fun loadRecipeJavaRx_Test_ResponseIsNotEmpty() {
-
         val response =
             Single.just(listOf(Meal(idMeal = "one"), Meal(idMeal = "two")))
+        val recipe = mock(List::class.java) as List<Meal>
+        `when`(recipe.isNotEmpty()).thenReturn(true)
         presenter.callRecipeRepo = response
         presenter.loadRecipeJavaRx()
         assertNotEquals(response.blockingGet().size, 0)
@@ -85,4 +95,17 @@ class RecipePresenterTest {
         }
     }
 
+    @Test
+    fun showInstructionAndIngredients_Test() {
+
+        val testRecipe = Meal()
+        testRecipe.strInstructions = "test_text"
+        presenter.currentRecipe = testRecipe
+        presenter.showInstructionAndIngredients()
+
+        val inOrder = inOrder(formIngredientsInstruction)
+        inOrder.verify(formIngredientsInstruction)
+            .formInstructionText(testRecipe.strInstructions ?: "")
+        inOrder.verify(formIngredientsInstruction).ingredientsList(testRecipe)
+    }
 }

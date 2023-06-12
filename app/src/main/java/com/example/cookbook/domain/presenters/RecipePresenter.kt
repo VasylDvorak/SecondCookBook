@@ -29,7 +29,7 @@ class RecipePresenter : MvpPresenter<RecipeView>() {
     lateinit var screen: IScreens
 
     var currentRecipe: Meal = Meal()
-    val formIngredientsInstruction = FormIngredientsInstruction()
+    var formIngredientsInstruction = FormIngredientsInstruction()
 
     public override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -38,7 +38,7 @@ class RecipePresenter : MvpPresenter<RecipeView>() {
     }
 
     lateinit var callRecipeRepo: Single<List<Meal>>
-    fun loadRecipe(currentItemMenu: Menu){
+    fun loadRecipe(currentItemMenu: Menu) {
         callRecipeRepo = recipeRepo.getRecipes(currentItemMenu)
         loadRecipeJavaRx()
     }
@@ -48,17 +48,16 @@ class RecipePresenter : MvpPresenter<RecipeView>() {
         callRecipeRepo
             .observeOn(mainThreadScheduler)
             .subscribe({ recipe ->
-                if(recipe.size !=0){
+                if (recipe.isNotEmpty()) {
                     viewState.progressCircleGone()
                     currentRecipe = recipe.get(0)
 
                     viewState.showRecipe(currentRecipe)
-                    showIngredients()
-                    showInstruction()
-            }     else{
+                    showInstructionAndIngredients()
+                } else {
                     showError()
-            }
-    }, {
+                }
+            }, {
                 showError()
             })
     }
@@ -70,22 +69,22 @@ class RecipePresenter : MvpPresenter<RecipeView>() {
     }
 
 
-    fun showInstruction() {
-        viewState.showInstruction(formIngredientsInstruction
-            .formInstructionText(currentRecipe.strInstructions?:""))
-    }
-   fun showIngredients() {
-        viewState.showIngredients(formIngredientsInstruction.ingredientsList(currentRecipe))
+    fun showInstructionAndIngredients() {
+        viewState.apply{
+           showInstruction(formIngredientsInstruction
+                .formInstructionText(currentRecipe.strInstructions ?: ""))
+           showIngredients(formIngredientsInstruction.ingredientsList(currentRecipe))
+        }
     }
 
     fun playMovie() {
-        currentRecipe.strYoutube?.let{
+        currentRecipe.strYoutube?.let {
             router.navigateTo(screen.playMovie(it))
         }
     }
 
-    fun showError(){
-        viewState.apply{
+    fun showError() {
+        viewState.apply {
             progressCircleGone()
             showToastFragment()
         }
