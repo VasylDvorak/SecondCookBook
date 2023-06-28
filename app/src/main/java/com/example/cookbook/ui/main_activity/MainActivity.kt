@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.cookbook.application.App
-import com.example.cookbook.ui.main_activity.interfaces.BackButtonListener
-import com.example.cookbook.domain.view.MainView
 import com.example.cookbook.R
+import com.example.cookbook.application.App
 import com.example.cookbook.databinding.ActivityMainBinding
 import com.example.cookbook.domain.presenters.MainPresenter
+import com.example.cookbook.domain.view.MainView
+import com.example.cookbook.ui.main_activity.interfaces.BackButtonListener
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
@@ -32,6 +32,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
     }
 
+
     private var vb: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +47,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         ) {
             askPermission()
         }
-
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
+
         navigatorHolder.setNavigator(navigator)
     }
 

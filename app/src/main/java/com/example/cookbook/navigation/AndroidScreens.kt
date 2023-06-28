@@ -1,6 +1,7 @@
 package com.example.cookbook.navigation
 
 import android.os.Bundle
+import com.example.cookbook.R
 import com.example.cookbook.domain.entity.entity_categories.Category
 import com.example.cookbook.domain.entity.entity_menu.Menu
 import com.example.cookbook.ui.categories.CategoriesFragment

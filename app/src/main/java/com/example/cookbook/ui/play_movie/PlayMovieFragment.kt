@@ -13,8 +13,8 @@ import com.example.cookbook.databinding.FragmentPlayMovieBinding
 const val PLAY_MOVIE = "play_movie"
 
 class PlayMovieFragment : Fragment() {
-    private var _binding: FragmentPlayMovieBinding? = null
-    private val binding get() = _binding!!
+    var _binding: FragmentPlayMovieBinding? = null
+    val binding get() = _binding!!
 
     companion object {
         fun newInstance(bundle: Bundle): PlayMovieFragment {
@@ -40,11 +40,11 @@ class PlayMovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val url = arguments?.getString(PLAY_MOVIE) ?: ""
-        binding.progressCircular.visibility=View.VISIBLE
+        binding.progressCircular.visibility = View.VISIBLE
         val webView = binding.webView
         if (url != "") {
-            binding.emptyLink.visibility=View.GONE
-            webView.visibility=View.VISIBLE
+            binding.emptyLink.visibility = View.GONE
+            webView.visibility = View.VISIBLE
             val settings = webView.settings
             webView.loadUrl(url)
             settings.apply {
@@ -52,17 +52,18 @@ class PlayMovieFragment : Fragment() {
                 setSupportZoom(true)
                 builtInZoomControls = true
             }
-        }else{
-            binding.emptyLink.visibility=View.VISIBLE
-            webView.visibility=View.GONE
-            binding?.progressCircular?.visibility=View.GONE
+        } else {
+            binding.emptyLink.visibility = View.VISIBLE
+            webView.visibility = View.GONE
+            binding?.progressCircular?.visibility = View.GONE
         }
 
-        webView.webViewClient= object : WebViewClient()  {
+        webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                try{
-                    binding?.progressCircular?.visibility=View.GONE
-                }catch (e:NullPointerException ){}
+                try {
+                    binding?.progressCircular?.visibility = View.GONE
+                } catch (e: NullPointerException) {
+                }
             }
         }
     }

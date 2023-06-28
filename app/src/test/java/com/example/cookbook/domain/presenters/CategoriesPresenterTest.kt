@@ -7,6 +7,7 @@ import com.example.cookbook.domain.view.CategoriesView
 import com.example.cookbook.navigation.IScreens
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.TestScheduler
+import io.reactivex.rxjava3.subscribers.TestSubscriber
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

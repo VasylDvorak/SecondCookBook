@@ -9,9 +9,8 @@ import com.example.cookbook.application.App
 import com.example.cookbook.databinding.FragmentCategoriesBinding
 import com.example.cookbook.di.di_categories.CategoriesSubcomponent
 import com.example.cookbook.domain.presenters.categories_presenters.CategoriesPresenter
-import com.example.cookbook.domain.view.CategoriesView
-import com.example.cookbook.ui.main_activity.interfaces.BackButtonListener
 import com.example.cookbook.domain.utils.Extensions
+import com.example.cookbook.domain.view.CategoriesView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -21,9 +20,9 @@ class CategoriesFragment : MvpAppCompatFragment(), CategoriesView {
         fun newInstance() = CategoriesFragment()
     }
 
-    private var categoriesSubcomponent: CategoriesSubcomponent? = null
+    var categoriesSubcomponent: CategoriesSubcomponent? = null
 
-    private val presenter: CategoriesPresenter by moxyPresenter {
+    val presenter: CategoriesPresenter by moxyPresenter {
         categoriesSubcomponent = App.instance.initCategorySubcomponent()
         CategoriesPresenter().apply {
             categoriesSubcomponent?.inject(this)
@@ -31,7 +30,7 @@ class CategoriesFragment : MvpAppCompatFragment(), CategoriesView {
 
     }
     var adapter: CategoriesRVAdapter? = null
-    private var vb: FragmentCategoriesBinding? = null
+    var vb: FragmentCategoriesBinding? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +43,7 @@ class CategoriesFragment : MvpAppCompatFragment(), CategoriesView {
         super.onDestroyView()
         vb = null
     }
+
 
     override fun init() {
         vb?.apply {

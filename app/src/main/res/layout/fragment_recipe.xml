@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/name_of_meal"
         android:layout_marginLeft="@dimen/scroll_view_margin"
-        android:textColor="@color/material_dynamic_secondary40"
+        android:textColor="@android:color/holo_purple"
         app:layout_constraintStart_toEndOf="@+id/photo_meal"
         app:layout_constraintTop_toTopOf="@+id/photo_meal"
         app:layout_constraintWidth_percent=".5" />
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="@string/area_meal"
         android:layout_marginLeft="@dimen/scroll_view_margin"
-        android:textColor="@color/material_dynamic_secondary40"
+        android:textColor="@android:color/holo_purple"
         app:layout_constraintStart_toEndOf="@+id/photo_meal"
         app:layout_constraintTop_toBottomOf="@+id/name_meal"
         app:layout_constraintWidth_percent=".5" />
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_area_meal"
         app:layout_constraintWidth_percent=".5" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/play_movie"
         android:layout_width="@dimen/play_button_size"
         android:layout_height="@dimen/play_button_size"
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/photo_meal" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/scroll_ingredients"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -108,7 +108,7 @@
 
             </ScrollView>
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
+            <androidx.core.widget.ContentLoadingProgressBar
                 android:id="@+id/progress_circular"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -116,9 +116,9 @@
                 android:indeterminate="true" />
         </FrameLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:cardBackgroundColor="@color/instruction_card_color"
@@ -142,6 +142,6 @@
                 android:textIsSelectable="true"
                 android:freezesText="true"/>
         </ScrollView>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@ class MenuPresenter : MvpPresenter<CategoriesView>() {
 
     lateinit var callMenuRepo: Single<List<Menu>>
     fun loadMenu(currentCategory: Category) {
-        callMenuRepo = menuRepo.getMenu(currentCategory)
+        callMenuRepo = menuRepo.getMenu(currentCategory)?:Single.just(listOf<Menu>())
         loadMenuJavaRx()
     }
 

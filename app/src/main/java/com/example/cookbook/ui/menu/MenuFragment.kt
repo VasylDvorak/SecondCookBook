@@ -9,10 +9,9 @@ import com.example.cookbook.application.App
 import com.example.cookbook.databinding.FragmentMenuBinding
 import com.example.cookbook.di.di_menu.MenuSubcomponent
 import com.example.cookbook.domain.entity.entity_categories.Category
-import com.example.cookbook.domain.view.CategoriesView
-import com.example.cookbook.ui.main_activity.interfaces.BackButtonListener
 import com.example.cookbook.domain.presenters.menu_fragment_presenters.MenuPresenter
 import com.example.cookbook.domain.utils.Extensions
+import com.example.cookbook.domain.view.CategoriesView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -20,7 +19,7 @@ const val CURRENT_CATEGORY = "current_category"
 
 class MenuFragment : MvpAppCompatFragment(), CategoriesView {
 
-    private lateinit var currentCategory: Category
+    lateinit var currentCategory: Category
 
     companion object {
         fun newInstance(bundle: Bundle): MenuFragment {
@@ -30,12 +29,13 @@ class MenuFragment : MvpAppCompatFragment(), CategoriesView {
         }
     }
 
-    private var _vb: FragmentMenuBinding? = null
-    private val vb
+
+    var _vb: FragmentMenuBinding? = null
+    val vb
         get() = _vb!!
 
     private var menuSubcomponent: MenuSubcomponent? = null
-    private val presenter: MenuPresenter by moxyPresenter {
+    val presenter: MenuPresenter by moxyPresenter {
 
         menuSubcomponent = App.instance.initMenuSubcomponent()
         MenuPresenter().apply {
@@ -82,6 +82,7 @@ class MenuFragment : MvpAppCompatFragment(), CategoriesView {
         menuSubcomponent = null
         App.instance.releaseMenuSubComponent()
     }
+
     override fun progressCircleGone() {
         vb?.progressCircular?.visibility = View.GONE
     }
