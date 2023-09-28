@@ -5,4 +5,5 @@
     <color name="ingredients_color">#E1FDFB</color>
     <color name="instruction_card_color">#F1E0F4</color>
     <color name="ingredients">#E1FDFB</color>
+    <color name="recipe_background">#F1EDEB</color>
 </resources>

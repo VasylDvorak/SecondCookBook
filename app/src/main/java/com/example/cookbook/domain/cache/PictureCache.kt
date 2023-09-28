@@ -22,11 +22,10 @@ class PictureCache : IPictureCache {
         Single.fromCallable {
             categories.map {
                 RoomPicture(
-                    it.idCategory, it.strCategoryThumb ?: "", SaveURLtoFile().saveInFile(it)
+                    it.idCategory, it.strCategoryThumb ?: "", ""
                 )
             }
         }
-
 
     override fun fromDataBaseData(): Single<List<PictureEnity>> {
         return Single.fromCallable {

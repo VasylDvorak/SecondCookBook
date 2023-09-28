@@ -7,7 +7,7 @@
     android:layout_marginRight="@dimen/card_margin_top"
     android:layout_marginTop="@dimen/card_margin_top"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/instruction_card_color">
+    app:cardBackgroundColor="#C2E1C3">
 
     <LinearLayout
         android:id="@+id/menu_root_linear_layout"
