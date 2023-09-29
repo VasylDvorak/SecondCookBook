@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/repositories_list"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="#436302"
         android:textSize="@dimen/text_size"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
